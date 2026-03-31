@@ -1,0 +1,6 @@
+.env
+tokens.json
+last_whoop_data.json
+__pycache__/
+*.pyc
+bot.log
