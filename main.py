@@ -34,9 +34,7 @@ def _build_test_fallback_briefing(data: dict) -> str:
     )
 
 
-def main():
-    test_mode = "--test" in sys.argv
-
+def run_daily_briefing(test_mode: bool = False) -> bool:
     try:
         # 1. Pull Whoop data
         whoop = WhoopClient()
@@ -68,9 +66,10 @@ def main():
             success = send_telegram_message(briefing)
             if not success:
                 print("❌ Failed to send Telegram message")
-                sys.exit(1)
+                return False
 
         print("\n🎉 Done!")
+        return True
 
     except Exception as e:
         error_msg = f"❌ Whoop Bot Error: {str(e)}"
@@ -83,6 +82,13 @@ def main():
             except Exception:
                 pass
 
+        return False
+
+
+def main():
+    test_mode = "--test" in sys.argv
+    success = run_daily_briefing(test_mode=test_mode)
+    if not success:
         sys.exit(1)
 
 

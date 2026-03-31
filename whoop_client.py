@@ -18,8 +18,9 @@ class WhoopClient:
     def __init__(self):
         self.client_id = os.getenv("WHOOP_CLIENT_ID")
         self.client_secret = os.getenv("WHOOP_CLIENT_SECRET")
-        self.access_token = None
-        self.refresh_token = None
+        # Allow env-based token bootstrap for cloud runtimes (e.g. Railway).
+        self.access_token = os.getenv("WHOOP_ACCESS_TOKEN")
+        self.refresh_token = os.getenv("WHOOP_REFRESH_TOKEN")
         self._load_tokens()
 
     def _load_tokens(self):
