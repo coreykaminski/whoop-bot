@@ -9,7 +9,12 @@ Usage:
 
 import sys
 import json
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    # In cloud runtimes, env vars are usually injected directly.
+    def load_dotenv():
+        return False
 
 load_dotenv()
 

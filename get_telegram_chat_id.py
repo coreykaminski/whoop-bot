@@ -5,7 +5,11 @@ Run this AFTER you've messaged your bot at least once.
 
 import os
 import requests
-from dotenv import load_dotenv
+try:
+    from dotenv import load_dotenv
+except ImportError:
+    def load_dotenv():
+        return False
 
 load_dotenv()
 
